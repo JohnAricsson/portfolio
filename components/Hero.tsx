@@ -3,7 +3,7 @@ import { Spotlight } from "./ui/spotlight";
 
 const Hero = () => {
   return (
-    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-black-100 px-4">
+    <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-black-100 px-4 py-20 md:py-0">
       <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
         <Spotlight
           className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen"
@@ -18,49 +18,67 @@ const Hero = () => {
           fill="#6366f1"
         />
       </div>
+      <div className="relative z-20 flex max-w-6xl w-full flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-8 lg:gap-16">
+        <div className="flex-1 flex items-center justify-center w-full max-w-md md:max-w-none">
+          <div className="relative group aspect-square w-full max-w-[320px] sm:max-w-[360px] md:max-w-[400px]">
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-teal-500/20 to-indigo-500/20 blur-2xl opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
 
-      <div className="relative z-20 flex max-w-5xl flex-col items-center justify-center text-center gap-6">
-        <div className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 backdrop-blur-md px-4 py-1.5 transition-all duration-300 hover:border-zinc-700">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500" />
-          </span>
-          <p className="text-1rem font-mono tracking-widest uppercase text-zinc-400">
-            JOHN ARICSSON MAJUMDER{" "}
-            <span className="hidden md:inline">. FullStack Developer</span>
-          </p>
+            <div className="relative h-full w-full overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/30 p-2 backdrop-blur-sm transition-all duration-500 group-hover:border-zinc-700/60 group-hover:scale-[1.02]">
+              <div className="h-full w-full overflow-hidden rounded-2xl bg-zinc-950">
+                <img
+                  src="/profile.jpg"
+                  alt="John Aricsson Majumder"
+                  className="h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
-        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl max-w-4xl leading-[1.15]">
-          Turning Ideas into Real{" "}
-          <span className="bg-gradient-to-r from-teal-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
-            Working Experiences
-          </span>
-        </h1>
-
-        <p className="text-base text-zinc-400 sm:text-lg max-w-2xl leading-relaxed font-normal">
-          I build fast, scalable web applications using modern web
-          technologies.I believe in smart work over hard work — I strive to
-          perform more through focused learning and practical problem-solving.
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
-          <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-1rem font-medium text-white backdrop-blur-3xl">
-              Show my work
+        <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left gap-6 max-w-2xl">
+          <div className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 backdrop-blur-md px-4 py-1.5 transition-all duration-300 hover:border-zinc-700">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500" />
             </span>
-          </button>
-          <button className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-teal-500 to-indigo-600 p-[1px] font-medium text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            <span className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <span className="relative inline-flex h-full w-full items-center justify-center rounded-[11px] bg-zinc-950 px-8 py-1 text-1rem transition-all duration-300 group-hover:bg-zinc-950/40">
-              Download CV
+            <p className="text-sm font-mono tracking-widest uppercase text-zinc-400">
+              JOHN ARICSSON MAJUMDER{" "}
+              <span className="hidden md:inline">· FullStack Developer</span>
+            </p>
+          </div>
+
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.15]">
+            Turning Ideas into Real{" "}
+            <span className="bg-gradient-to-r from-teal-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+              Working Experiences
             </span>
-          </button>
+          </h1>
+
+          <p className="text-base text-zinc-400 sm:text-lg leading-relaxed font-normal">
+            I build fast, scalable web applications using modern web
+            technologies. I believe in smart work over hard work — I strive to
+            perform more through focused learning and practical problem-solving.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center gap-4 mt-2 w-full sm:w-auto">
+            <button className="relative inline-flex h-12 w-full sm:w-auto overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+              <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+              <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-8 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+                Show my work
+              </span>
+            </button>
+
+            <button className="group relative inline-flex h-12 w-full sm:w-auto items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-teal-500 to-indigo-600 p-[1px] font-medium text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <span className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <span className="relative inline-flex h-full w-full items-center justify-center rounded-[11px] bg-zinc-950 px-8 py-1 text-sm transition-all duration-300 group-hover:bg-zinc-950/40">
+                Download CV
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500 opacity-80 hover:opacity-100 transition-opacity">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500 opacity-80 hover:opacity-100 transition-opacity hidden md:flex">
         <span className="text-[10px] font-mono tracking-widest uppercase">
           scroll
         </span>
