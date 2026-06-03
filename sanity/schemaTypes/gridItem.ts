@@ -13,21 +13,6 @@ export const gridItem = defineType({
       type: "string",
     }),
     defineField({
-      name: "className",
-      title: "Card Layout Class (Grid Span)",
-      type: "string",
-    }),
-    defineField({
-      name: "imgClassName",
-      title: "Image Layout Class",
-      type: "string",
-    }),
-    defineField({
-      name: "titleClassName",
-      title: "Title Layout Class",
-      type: "string",
-    }),
-    defineField({
       name: "img",
       title: "Background Vector / Image Asset",
       type: "image",
@@ -39,7 +24,6 @@ export const gridItem = defineType({
       type: "image",
       options: { hotspot: true },
     }),
-
     defineField({
       name: "techStackLeft",
       title: "Tech Stack Left List (Card 3)",
@@ -52,7 +36,6 @@ export const gridItem = defineType({
       type: "array",
       of: [{ type: "string" }],
     }),
-
     defineField({
       name: "isContactCard",
       title: "Is this the Contact/Email Card?",

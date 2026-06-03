@@ -33,11 +33,8 @@ const Grid = async () => {
               key={item.id || index}
               title={item.title || ""}
               description={item.description || ""}
-              className={item.className || "md:col-span-2 md:row-span-1"}
               img={item.img || ""}
               spareImg={item.spareImg || ""}
-              imgClassName={item.imgClassName || ""}
-              titleClassName={item.titleClassName || ""}
               techStackLeft={
                 Array.isArray(item.techStackLeft) ? item.techStackLeft : []
               }

@@ -85,27 +85,6 @@
         },
         "optional": true
       },
-      "className": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "imgClassName": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "titleClassName": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "img": {
         "type": "objectAttribute",
         "value": {

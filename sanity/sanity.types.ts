@@ -31,9 +31,6 @@ export type GridItem = {
   id?: number;
   title?: string;
   description?: string;
-  className?: string;
-  imgClassName?: string;
-  titleClassName?: string;
   img?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -189,14 +186,11 @@ export type AllSanitySchemaTypes =
 
 // Source: sanity/lib/sanity.queries.ts
 // Variable: BENTO_GRID_QUERY
-// Query: *[_type == "gridItem"] | order(id asc) {  id,  title,  description,  className,  imgClassName,  titleClassName,  "img": img.asset->url,  "spareImg": spareImg.asset->url,  techStackLeft,  techStackRight,  isContactCard}
+// Query: *[_type == "gridItem"] | order(id asc) {  id,  title,  description,  "img": img.asset->url,  "spareImg": spareImg.asset->url,  techStackLeft,  techStackRight,  isContactCard}
 export type BENTO_GRID_QUERY_RESULT = Array<{
   id: number | null;
   title: string | null;
   description: string | null;
-  className: string | null;
-  imgClassName: string | null;
-  titleClassName: string | null;
   img: string | null;
   spareImg: string | null;
   techStackLeft: Array<string> | null;
@@ -208,6 +202,6 @@ export type BENTO_GRID_QUERY_RESULT = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "gridItem"] | order(id asc) {\n  id,\n  title,\n  description,\n  className,\n  imgClassName,\n  titleClassName,\n  "img": img.asset->url,\n  "spareImg": spareImg.asset->url,\n  techStackLeft,\n  techStackRight,\n  isContactCard\n}': BENTO_GRID_QUERY_RESULT;
+    '*[_type == "gridItem"] | order(id asc) {\n  id,\n  title,\n  description,\n  "img": img.asset->url,\n  "spareImg": spareImg.asset->url,\n  techStackLeft,\n  techStackRight,\n  isContactCard\n}': BENTO_GRID_QUERY_RESULT;
   }
 }
