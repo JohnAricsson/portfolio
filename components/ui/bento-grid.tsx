@@ -63,14 +63,22 @@ export const BentoGridItem = ({
 
   const layoutClass = GRID_LAYOUTS[id] || "md:col-span-2 md:row-span-1";
 
+  // DYNAMIC TECH STACK HANDLING
+  const fullStackList = [...techStackLeft, ...techStackRight];
+  const midPoint = Math.ceil(fullStackList.length / 2);
+
+  const dynamicLeftStack = fullStackList.slice(0, midPoint);
+  const dynamicRightStack = fullStackList.slice(midPoint);
+
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-3xl border border-white/[0.05] flex flex-col justify-between group/bento transition-all duration-500 ease-out select-none h-full w-full",
-        "hover:-translate-y-1.5 hover:border-zinc-700/50 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)]",
+        "relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/10 backdrop-blur-sm flex flex-col justify-between group/bento transition-all duration-500 ease-out select-none h-full w-full",
+        "hover:-translate-y-1.5 hover:border-zinc-700/60 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.8)]",
+        // Theme Update: Swapped cosmic purples out for deep unified slate backgrounds matching the hero layout
         isContactCard
-          ? "bg-gradient-to-br from-[#1a0b36] via-[#3b1fa3] to-[#631cb8]"
-          : "bg-[#04071d] hover:bg-gradient-to-b hover:from-[#04071d] hover:to-[#0a0d24]",
+          ? "bg-gradient-to-br from-[#090d16] via-[#0d1527] to-[#111c35]"
+          : "bg-[#090d16] hover:bg-gradient-to-b hover:from-[#090d16] hover:to-[#0e1626]",
         layoutClass,
       )}
     >
@@ -85,24 +93,25 @@ export const BentoGridItem = ({
                 "absolute bottom-0 right-0 w-full h-full object-cover object-right-bottom",
               id === 4 && "w-full h-full opacity-20 object-cover absolute",
               id === 5 &&
-                "absolute right-0 top-0 w-full md:w-1/2 h-full object-contain object-center scale-100 opacity-90",
+                "absolute right-0 bottom-0 w-full h-full object-cover object-right-bottom scale-100 opacity-90",
             )}
           />
         </div>
       )}
 
       {isContactCard && (
-        <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-0" />
+        <div className="absolute inset-0 bg-grid-white/[0.015] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-0" />
       )}
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--x,50%)_var(--y,50%),rgba(120,119,198,0.06)_0%,transparent_50%)] opacity-0 group-hover/bento:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
+      {/* Theme Update: Changed radial hover spotlight effect to sharp Cyan/Teal accent match */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--x,50%)_var(--y,50%),rgba(20,184,166,0.05)_0%,transparent_50%)] opacity-0 group-hover/bento:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
 
       <div
         className={cn(
           "relative z-20 p-6 lg:p-8 flex flex-col h-full w-full",
           id === 1 && "justify-end items-start text-left",
           id === 2 && "justify-start items-start text-left",
-          id === 3 && "justify-center items-start text-left",
+          id === 3 && "justify-center items-start text-left pr-36 md:pr-40",
           id === 4 && "justify-start items-start text-left",
           id === 5 &&
             "justify-center items-start text-left md:max-w-[50%] h-full",
@@ -110,35 +119,42 @@ export const BentoGridItem = ({
         )}
       >
         {id === 5 && (
-          <div className="absolute inset-0 bg-gradient-to-r from-[#04071d] via-[#04071d]/90 to-transparent pointer-events-none -z-10" />
+          // Theme Update: Code gradient overlay seamlessly washes back to core slate (#090d16)
+          <div className="absolute inset-0 bg-gradient-to-r from-[#090d16] via-[#090d16]/90 to-transparent pointer-events-none -z-10" />
         )}
 
         <div className="flex flex-col gap-2.5 max-w-[95%] relative z-30">
+          {/* Theme Update: Crisp zinc font profiles for descriptions */}
           <p className="text-xs font-mono font-medium tracking-widest uppercase text-zinc-400/80">
             {description}
           </p>
-          <h3 className="font-sans font-bold text-lg lg:text-xl xl:text-2xl text-neutral-100 leading-[1.3] tracking-tight transition-colors duration-300 group-hover/bento:text-white">
+          {/* Theme Update: Main text colors upgraded to clean white */}
+          <h3 className="font-sans font-bold text-lg lg:text-xl xl:text-2xl text-white leading-[1.3] tracking-tight transition-colors duration-300">
             {title}
           </h3>
         </div>
 
+        {/* ⚡ CARD 3: Dynamic Tech Stack Side-panel */}
         {id === 3 && (
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2 h-[85%] items-center justify-center opacity-80 group-hover/bento:opacity-100 transition-all duration-500 pointer-events-none z-10">
-            <div className="flex flex-col gap-2 transition-transform duration-700 ease-out group-hover/bento:translate-y-2">
-              {techStackLeft.slice(0, 3).map((item) => (
+          <div className="absolute right-3 top-0 bottom-0 flex gap-2 w-28 md:w-45 items-center justify-center opacity-80 group-hover/bento:opacity-100 transition-all duration-500 pointer-events-none z-10 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]">
+            {/* Left Stack Column */}
+            <div className="flex flex-col gap-2 transition-transform duration-1000 ease-out group-hover/bento:-translate-y-4">
+              {dynamicLeftStack.map((item) => (
                 <span
                   key={item}
-                  className="py-1.5 px-3 text-[10px] font-mono font-medium rounded-lg bg-[#10132E]/90 text-zinc-400 border border-white/[0.04] shadow-md backdrop-blur-md"
+                  className="py-1.5 text-[9px] md:text-[11px] font-mono font-medium rounded-lg bg-zinc-900/80 text-zinc-300 border border-white/[0.03] shadow-md backdrop-blur-md text-center truncate px-2"
                 >
                   {item}
                 </span>
               ))}
             </div>
-            <div className="flex flex-col gap-2 transition-transform duration-700 ease-out group-hover/bento:-translate-y-2">
-              {techStackRight.slice(0, 3).map((item) => (
+
+            {/* Right Stack Column */}
+            <div className="flex flex-col gap-2 transition-transform duration-1000 ease-out group-hover/bento:translate-y-4">
+              {dynamicRightStack.map((item) => (
                 <span
                   key={item}
-                  className="py-1.5 px-3 text-[10px] font-mono font-medium rounded-lg bg-[#10132E]/90 text-zinc-400 border border-white/[0.04] shadow-md backdrop-blur-md"
+                  className="py-1.5 px-2 text-[9px] md:text-[11px] font-mono font-medium rounded-lg bg-zinc-900/80 text-zinc-300 border border-white/[0.03] shadow-md backdrop-blur-md text-center truncate"
                 >
                   {item}
                 </span>
@@ -149,9 +165,10 @@ export const BentoGridItem = ({
 
         {isContactCard && (
           <div className="mt-4 flex w-full justify-center relative z-30">
+            {/* Theme Update: Copy email button matched with slate borders and subtle white glass overlay */}
             <button
               onClick={handleCopy}
-              className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-6 text-xs font-medium text-white gap-2 transition-all duration-300 hover:bg-white/10 hover:border-white/20 active:scale-95 shadow-[0_4px_12px_rgba(0,0,0,0.1)] backdrop-blur-md cursor-pointer"
+              className="inline-flex h-11 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/50 px-6 text-xs font-medium text-zinc-200 gap-2 transition-all duration-300 hover:bg-zinc-800/80 hover:text-white hover:border-zinc-700 active:scale-95 shadow-[0_4px_12px_rgba(0,0,0,0.3)] backdrop-blur-md cursor-pointer"
             >
               {copied ? (
                 <>

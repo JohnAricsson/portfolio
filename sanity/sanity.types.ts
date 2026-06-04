@@ -15,11 +15,61 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: sanity/extract.json
+export type Education = {
+  _id: string;
+  _type: "education";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  id?: number;
+  period?: string;
+  title?: string;
+  institution?: string;
+  description?: Array<string>;
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
   _weak?: boolean;
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  id?: number;
+  title?: string;
+  description?: string;
+  img?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  liveLink?: string;
+  gitHubLink?: string;
+  iconLists?: Array<string>;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
 };
 
 export type GridItem = {
@@ -48,22 +98,6 @@ export type GridItem = {
   techStackLeft?: Array<string>;
   techStackRight?: Array<string>;
   isContactCard?: boolean;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -170,10 +204,12 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
+  | Education
   | SanityImageAssetReference
-  | GridItem
+  | Project
   | SanityImageCrop
   | SanityImageHotspot
+  | GridItem
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -198,10 +234,36 @@ export type BENTO_GRID_QUERY_RESULT = Array<{
   isContactCard: boolean | null;
 }>;
 
+// Source: sanity/lib/sanity.queries.ts
+// Variable: PROJECTS_QUERY
+// Query: *[_type == "project"] | order(id asc) {  id,  title,  description,  "img": img.asset->url,  liveLink,  gitHubLink,  iconLists}
+export type PROJECTS_QUERY_RESULT = Array<{
+  id: number | null;
+  title: string | null;
+  description: string | null;
+  img: string | null;
+  liveLink: string | null;
+  gitHubLink: string | null;
+  iconLists: Array<string> | null;
+}>;
+
+// Source: sanity/lib/sanity.queries.ts
+// Variable: EDUCATION_QUERY
+// Query: *[_type == "education"] | order(id asc) {  id,  period,  title,  institution,  description}
+export type EDUCATION_QUERY_RESULT = Array<{
+  id: number | null;
+  period: string | null;
+  title: string | null;
+  institution: string | null;
+  description: Array<string> | null;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "gridItem"] | order(id asc) {\n  id,\n  title,\n  description,\n  "img": img.asset->url,\n  "spareImg": spareImg.asset->url,\n  techStackLeft,\n  techStackRight,\n  isContactCard\n}': BENTO_GRID_QUERY_RESULT;
+    '*[_type == "project"] | order(id asc) {\n  id,\n  title,\n  description,\n  "img": img.asset->url,\n  liveLink,\n  gitHubLink,\n  iconLists\n}': PROJECTS_QUERY_RESULT;
+    '*[_type == "education"] | order(id asc) {\n  id,\n  period,\n  title,\n  institution,\n  description\n}': EDUCATION_QUERY_RESULT;
   }
 }

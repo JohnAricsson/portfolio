@@ -26,13 +26,13 @@ export const gridItem = defineType({
     }),
     defineField({
       name: "techStackLeft",
-      title: "Tech Stack Left List (Card 3)",
+      title: "Tech Stack Left List (Card)",
       type: "array",
       of: [{ type: "string" }],
     }),
     defineField({
       name: "techStackRight",
-      title: "Tech Stack Right List (Card 3)",
+      title: "Tech Stack Right List (Card)",
       type: "array",
       of: [{ type: "string" }],
     }),

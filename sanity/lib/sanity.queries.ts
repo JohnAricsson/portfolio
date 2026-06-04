@@ -18,3 +18,23 @@ export const BENTO_GRID_QUERY =
   techStackRight,
   isContactCard
 }`);
+
+export const PROJECTS_QUERY =
+  defineQuery(`*[_type == "project"] | order(id asc) {
+  id,
+  title,
+  description,
+  "img": img.asset->url,
+  liveLink,
+  gitHubLink,
+  iconLists
+}`);
+
+export const EDUCATION_QUERY =
+  defineQuery(`*[_type == "education"] | order(id asc) {
+  id,
+  period,
+  title,
+  institution,
+  description
+}`);
