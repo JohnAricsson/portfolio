@@ -15,6 +15,21 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: sanity/extract.json
+export type Milestone = {
+  _id: string;
+  _type: "milestone";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  id?: number;
+  category?: "work" | "achievement";
+  title?: string;
+  subtitle?: string;
+  period?: string;
+  iconPath?: string;
+  bulletPoints?: Array<string>;
+};
+
 export type Education = {
   _id: string;
   _type: "education";
@@ -204,6 +219,7 @@ export type Slug = {
 };
 
 export type AllSanitySchemaTypes =
+  | Milestone
   | Education
   | SanityImageAssetReference
   | Project
@@ -258,6 +274,19 @@ export type EDUCATION_QUERY_RESULT = Array<{
   description: Array<string> | null;
 }>;
 
+// Source: sanity/lib/sanity.queries.ts
+// Variable: MILESTONES_QUERY
+// Query: *[_type == "milestone"] | order(id asc) {  id,  category,  title,  subtitle,  period,  iconPath,  bulletPoints}
+export type MILESTONES_QUERY_RESULT = Array<{
+  id: number | null;
+  category: "achievement" | "work" | null;
+  title: string | null;
+  subtitle: string | null;
+  period: string | null;
+  iconPath: string | null;
+  bulletPoints: Array<string> | null;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -265,5 +294,6 @@ declare module "@sanity/client" {
     '*[_type == "gridItem"] | order(id asc) {\n  id,\n  title,\n  description,\n  "img": img.asset->url,\n  "spareImg": spareImg.asset->url,\n  techStackLeft,\n  techStackRight,\n  isContactCard\n}': BENTO_GRID_QUERY_RESULT;
     '*[_type == "project"] | order(id asc) {\n  id,\n  title,\n  description,\n  "img": img.asset->url,\n  liveLink,\n  gitHubLink,\n  iconLists\n}': PROJECTS_QUERY_RESULT;
     '*[_type == "education"] | order(id asc) {\n  id,\n  period,\n  title,\n  institution,\n  description\n}': EDUCATION_QUERY_RESULT;
+    '*[_type == "milestone"] | order(id asc) {\n  id,\n  category,\n  title,\n  subtitle,\n  period,\n  iconPath,\n  bulletPoints\n}': MILESTONES_QUERY_RESULT;
   }
 }

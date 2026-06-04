@@ -38,3 +38,14 @@ export const EDUCATION_QUERY =
   institution,
   description
 }`);
+
+export const MILESTONES_QUERY =
+  defineQuery(`*[_type == "milestone"] | order(id asc) {
+  id,
+  category,
+  title,
+  subtitle,
+  period,
+  iconPath,
+  bulletPoints
+}`);
