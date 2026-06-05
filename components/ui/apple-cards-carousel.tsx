@@ -60,15 +60,12 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         <div
           ref={carouselRef}
           onScroll={checkScrollability}
-          // FIX: Removed extreme paddings. Inherits container width cleanly.
           className="flex w-full overflow-x-auto scroll-smooth pb-8 pt-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
-          {/* FIX: Removed max-w-7xl, pl-10, pr-10. Let the parent (Milestone.tsx) handle bounds */}
           <div className="flex gap-4 sm:gap-6 md:gap-8">
             {items.map((item, index) => (
               <motion.div
                 key={index}
-                // FIX: Added shrink-0 so cards don't squish inside their new container
                 className="shrink-0"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -84,21 +81,29 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
           </div>
         </div>
 
-        {/* Navigation Buttons: Removed padding-right so they align flawlessly with the right text boundary */}
-        <div className="flex justify-end gap-3 md:gap-4 mt-2">
+        <div className="flex justify-center gap-5 md:gap-6 mt-4 pr-2">
           <button
             onClick={scrollLeft}
             disabled={!canScrollLeft}
-            className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl border border-zinc-300 bg-white text-zinc-600 shadow-sm transition-all duration-300 enabled:hover:border-teal-500/40 enabled:hover:text-teal-600 enabled:hover:bg-zinc-50 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed dark:border-zinc-800 dark:bg-zinc-950/50 dark:text-zinc-400 dark:enabled:hover:text-teal-400 dark:enabled:hover:bg-teal-950/10 dark:shadow-none"
+            className="group relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center outline-none disabled:opacity-20 disabled:cursor-not-allowed"
           >
-            <IconArrowNarrowLeft className="h-5 w-5 md:h-6 md:w-6" />
+            <div className="absolute -inset-2 rounded-xl bg-gradient-to-r from-teal-400 to-cyan-500 opacity-70 blur-lg transition-all duration-300 group-enabled:group-hover:opacity-100 group-enabled:group-hover:-inset-3 group-enabled:group-hover:blur-xl animate-pulse" />
+
+            <div className="relative z-10 flex h-full w-full items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-[inset_0_1px_rgba(255,255,255,0.4),0_0_15px_rgba(20,184,166,0.6)] transition-all duration-300 group-enabled:group-hover:scale-110">
+              <IconArrowNarrowLeft className="h-5 w-5 md:h-6 md:w-6 drop-shadow-md transition-transform duration-300 group-enabled:group-hover:-translate-x-0.5" />
+            </div>
           </button>
+
           <button
             onClick={scrollRight}
             disabled={!canScrollRight}
-            className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl border border-zinc-300 bg-white text-zinc-600 shadow-sm transition-all duration-300 enabled:hover:border-teal-500/40 enabled:hover:text-teal-600 enabled:hover:bg-zinc-50 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed dark:border-zinc-800 dark:bg-zinc-950/50 dark:text-zinc-400 dark:enabled:hover:text-teal-400 dark:enabled:hover:bg-teal-950/10 dark:shadow-none"
+            className="group relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center outline-none disabled:opacity-20 disabled:cursor-not-allowed"
           >
-            <IconArrowNarrowRight className="h-5 w-5 md:h-6 md:w-6" />
+            <div className="absolute -inset-2 rounded-xl bg-gradient-to-r from-teal-400 to-cyan-500 opacity-70 blur-lg transition-all duration-300 group-enabled:group-hover:opacity-100 group-enabled:group-hover:-inset-3 group-enabled:group-hover:blur-xl animate-pulse" />
+
+            <div className="relative z-10 flex h-full w-full items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-[inset_0_1px_rgba(255,255,255,0.4),0_0_15px_rgba(20,184,166,0.6)] transition-all duration-300 group-enabled:group-hover:scale-110">
+              <IconArrowNarrowRight className="h-5 w-5 md:h-6 md:w-6 drop-shadow-md transition-transform duration-300 group-enabled:group-hover:translate-x-0.5" />
+            </div>
           </button>
         </div>
       </div>

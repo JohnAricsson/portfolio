@@ -18,6 +18,7 @@ export const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [activeSection, setActiveSection] = useState("");
 
+  // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -26,6 +27,19 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // FIX 1: Lock body scroll when mobile menu is open so the background doesn't move
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
+  // Handle intersection observers
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
@@ -50,6 +64,7 @@ export const Navbar = () => {
     return () => observers.forEach((obs) => obs.disconnect());
   }, []);
 
+  // Handle dark mode toggling
   useEffect(() => {
     const root = window.document.documentElement;
     if (isDarkMode) {
@@ -89,9 +104,10 @@ export const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed top-0 inset-x-0 z-9999 transition-all duration-500 border-b select-none ease-in-out",
-        scrolled
-          ? "bg-[#090d16]/80 dark:bg-[#090d16]/80 bg-white/80 backdrop-blur-md border-zinc-200/50 dark:border-zinc-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] dark:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] py-4"
+        "fixed top-0 inset-x-0 z-[9999] transition-all duration-500 border-b select-none ease-in-out",
+        // FIX 2: Force the top bar to become solid/blurred if the menu is OPEN, even if we are at the top of the page
+        scrolled || isOpen
+          ? "bg-white/95 dark:bg-[#090d16]/95 backdrop-blur-xl border-zinc-200/50 dark:border-zinc-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] dark:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] py-4"
           : "bg-transparent border-transparent py-6",
       )}
     >
@@ -220,7 +236,7 @@ export const Navbar = () => {
         className={cn(
           "fixed top-[69px] inset-x-0 bottom-0 border-t transition-all duration-500 ease-in-out z-40 flex flex-col items-center justify-center gap-8 font-mono text-sm tracking-widest uppercase md:hidden",
           isOpen
-            ? "bg-white/95 dark:bg-[#090d16]/95 backdrop-blur-lg border-zinc-200 dark:border-zinc-900 opacity-100 translate-y-0"
+            ? "bg-white dark:bg-[#090d16] border-zinc-200 dark:border-zinc-900 opacity-100 translate-y-0"
             : "opacity-0 -translate-y-6 pointer-events-none border-transparent",
         )}
       >
