@@ -44,7 +44,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     checkScrollability();
   }, [initialScroll]);
 
-  // Adjusted mobile scroll distance for smoother UX
   const scrollLeft = () => {
     const scrollAmount = window.innerWidth < 768 ? -280 : -400;
     carouselRef.current?.scrollBy({ left: scrollAmount, behavior: "smooth" });
@@ -61,12 +60,16 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         <div
           ref={carouselRef}
           onScroll={checkScrollability}
-          className="flex w-full overflow-x-auto scroll-smooth py-8 md:py-12 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          // FIX: Removed extreme paddings. Inherits container width cleanly.
+          className="flex w-full overflow-x-auto scroll-smooth pb-8 pt-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
-          <div className="flex gap-4 sm:gap-6 md:gap-8 pl-4 md:pl-10 pr-10 max-w-7xl mx-auto">
+          {/* FIX: Removed max-w-7xl, pl-10, pr-10. Let the parent (Milestone.tsx) handle bounds */}
+          <div className="flex gap-4 sm:gap-6 md:gap-8">
             {items.map((item, index) => (
               <motion.div
                 key={index}
+                // FIX: Added shrink-0 so cards don't squish inside their new container
+                className="shrink-0"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -74,7 +77,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                   delay: index * 0.05,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="last:pr-8 md:last:pr-20"
               >
                 {item}
               </motion.div>
@@ -82,7 +84,8 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 md:gap-4 pr-4 md:pr-10 -mt-2 md:-mt-2">
+        {/* Navigation Buttons: Removed padding-right so they align flawlessly with the right text boundary */}
+        <div className="flex justify-end gap-3 md:gap-4 mt-2">
           <button
             onClick={scrollLeft}
             disabled={!canScrollLeft}
@@ -120,7 +123,7 @@ export const Card = ({ card }: { card: CardType; index: number }) => {
   return (
     <motion.div
       className={cn(
-        "relative h-[34rem] sm:h-[36rem] md:h-[39rem] w-[65vw] sm:w-[22rem] md:w-[26rem] rounded-[2rem] transition-all duration-500 ease-out group",
+        "relative shrink-0 h-[34rem] sm:h-[36rem] md:h-[39rem] w-[85vw] sm:w-[22rem] md:w-[26rem] rounded-[2rem] transition-all duration-500 ease-out group",
         "border-1 border-zinc-400 shadow-[0_0_0_1px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.06)]",
         "hover:-translate-y-2 md:hover:-translate-y-3 hover:border-zinc-400 hover:shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_30px_60px_-15px_rgba(0,0,0,0.14)]",
         "dark:border-zinc-800/80 dark:shadow-none dark:hover:border-zinc-700/80 dark:hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.9)]",

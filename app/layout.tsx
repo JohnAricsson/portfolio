@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   title: "John Aricsson Majumder | Portfolio",
   description:
     "A showcase of my projects, skills, and experience as a software developer.",
+  icons: {
+    icon: "/icon.ico",
+    shortcut: "/icon.ico",
+  },
 };
 
 export default function RootLayout({

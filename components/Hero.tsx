@@ -172,7 +172,7 @@ const Hero = () => {
             <div className="relative h-full w-full overflow-hidden rounded-3xl border border-neutral-200 bg-white/50 p-1.5 shadow-lg backdrop-blur-sm transition-all duration-500 group-hover:scale-[1.02] group-hover:border-teal-500/50 dark:border-neutral-800 dark:bg-black/30 dark:shadow-none dark:group-hover:border-indigo-500/50">
               <div className="relative h-full w-full overflow-hidden rounded-2xl">
                 <img
-                  src="/profile.jpg"
+                  src="/profile.png"
                   alt="John Aricsson Majumder"
                   loading="lazy"
                   decoding="async"
